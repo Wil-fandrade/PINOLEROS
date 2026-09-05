@@ -1,18 +1,31 @@
 export const products = [
-  { id: 'tshirts', name: 'T-Shirts', shortName: 'Tees', accent: 'cyan', technology: 'DTF / DTG', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1200&q=85', alt: 'Clean white T-shirt ready for custom printing', description: 'Your everyday canvas, made unmistakably yours.', story: 'From a blank cotton base to a crisp, full-colour idea.', price: 'from $28' },
-  { id: 'hoodies', name: 'Hoodies', shortName: 'Hoodies', accent: 'purple', technology: 'DTF / Embroidery', image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1200&q=85', alt: 'Heather grey hoodie with a relaxed premium fit', description: 'Soft structure for ideas with weight.', story: 'A heavyweight blank with room for your point of view.', price: 'from $52' },
-  { id: 'caps', name: 'Caps', shortName: 'Caps', accent: 'magenta', technology: 'Embroidery / Transfer', image: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1000&q=85', alt: 'Black baseball cap on a neutral studio background', description: 'Small surface. Strong signal.', story: 'Your mark, stitched or pressed into the everyday.', price: 'from $24' },
-  { id: 'mugs', name: 'Mugs', shortName: 'Mugs', accent: 'yellow', technology: 'Sublimation', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=85', alt: 'White ceramic coffee mug with a warm handmade feel', description: 'Good ideas for your daily ritual.', story: 'A dependable ceramic base for colour that stays bright.', price: 'from $18' },
-  { id: 'shirts', name: 'Shirts', shortName: 'Shirts', accent: 'cyan', technology: 'DTF / Screen print', image: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1000&q=85', alt: 'Neutral button-up shirt hanging in a bright studio', description: 'A sharper way to wear the idea.', story: 'Custom detail with a little more structure.', price: 'from $36' },
-  { id: 'banners', name: 'Banners', shortName: 'Banners', accent: 'magenta', technology: 'Large-format digital', image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=1000&q=85', alt: 'Layered bright colour paper textures for a large format print', description: 'Make the room notice.', story: 'Large-format colour built for launches, spaces and events.', price: 'from $40' },
-  { id: 'bags', name: 'Bags', shortName: 'Bags', accent: 'yellow', technology: 'DTF / Screen print', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1000&q=85', alt: 'Structured leather bag photographed in a clean studio setting', description: 'Carry the thought around.', story: 'Useful, visible and ready to go wherever you do.', price: 'from $22' },
-  { id: 'custom', name: 'Something else', shortName: 'Custom', accent: 'black', technology: 'Material-led', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85', alt: 'Bright creative workspace ready for a custom project', description: 'If you can imagine it, start the conversation.', story: 'Tell us the object and we will find the right process.', price: 'Let’s talk' }
+  { id: 'tshirts', name: 'Essential Tee', shortName: 'Camisetas', accent: 'cyan', category: 'wear', technology: 'Sublimación total', image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85', alt: 'Persona sonriente usando una camiseta personalizada', description: 'Algodón premium, color que dura y el fit que siempre funciona.', price: 'desde $24' },
+  { id: 'hoodies', name: 'Heavy Hoodie', shortName: 'Hoodies', accent: 'blue', category: 'wear', technology: 'DTF / Bordado', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=85', alt: 'Persona sonriente usando un hoodie personalizado', description: 'Suave por dentro. Potente por fuera.', price: 'desde $52' },
+  { id: 'caps', name: 'Everyday Cap', shortName: 'Gorras', accent: 'yellow', category: 'wear', technology: 'Bordado / Transfer', image: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1000&q=85', alt: 'Persona usando una gorra personalizada y sonriendo', description: 'Tu logo, tu frase, tu señal.', price: 'desde $22' },
+  { id: 'tote', name: 'Tote de autor', shortName: 'Bolsas', accent: 'pink', category: 'wear', technology: 'Impresión premium', image: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1000&q=85', alt: 'Persona sonriente llevando una bolsa tote personalizada', description: 'Lleva tu idea a todas partes.', price: 'desde $19' },
+  { id: 'mugs', name: 'Daily Mug', shortName: 'Tazas', accent: 'cyan', category: 'home', technology: 'Sublimación 360°', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2087?auto=format&fit=crop&w=1000&q=85', alt: 'Taza blanca con café junto a una libreta', description: 'Tu ritual diario, con más personalidad.', price: 'desde $16' },
+  { id: 'mousepad', name: 'Desk Mat', shortName: 'Escritorio', accent: 'yellow', category: 'home', technology: 'Sublimación HD', image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85', alt: 'Escritorio creativo con accesorios', description: 'Haz que tu espacio también hable.', price: 'desde $28' },
+  { id: 'photos', name: 'Foto montaje', shortName: 'Fotos', accent: 'pink', category: 'gifts', technology: 'Color fotográfico', image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=85', alt: 'Amigos sonrientes celebrando con recuerdos personalizados', description: 'Momentos que merecen una pared.', price: 'desde $30' },
+  { id: 'custom', name: 'Tu idea', shortName: 'Custom', accent: 'blue', category: 'gifts', technology: 'A medida', image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85', alt: 'Persona feliz mostrando su producto personalizado', description: 'Si lo imaginas, encontramos cómo imprimirlo.', price: 'Cotizar' }
 ];
 
-export const processSteps = [
-  { number: '01', title: 'Imagine', copy: 'Bring the half-formed thought, the reference, or the feeling.' },
-  { number: '02', title: 'Design', copy: 'We turn the spark into a visual direction that feels like you.' },
-  { number: '03', title: 'Customize', copy: 'Choose the product, colour, placement and finish.' },
-  { number: '04', title: 'Produce', copy: 'The right technique brings the idea into the real world.' },
-  { number: '05', title: 'Deliver', copy: 'A considered piece arrives ready to be used, worn and remembered.' }
+export const heroSlides = [
+  { product: 'Camiseta gráfica', detail: 'Sublimación full color · desde $24', image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1400&q=85', alt: 'Persona sonriente usando una camiseta personalizada', accent: 'cyan' },
+  { product: 'Hoodie de autor', detail: 'DTF premium · desde $52', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1400&q=85', alt: 'Persona sonriente usando un hoodie personalizado', accent: 'pink' },
+  { product: 'Gorra con actitud', detail: 'Bordado premium · desde $22', image: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1400&q=85', alt: 'Persona usando una gorra personalizada y sonriendo', accent: 'yellow' }
+];
+
+export const designs = [
+  { title: 'Mente en modo avión', type: 'Tipografía', className: 'design-lime', mark: 'OFFLINE', sub: 'MODO AVIÓN' },
+  { title: 'Good energy only', type: 'Tipografía', className: 'design-coral', mark: 'GOOD', sub: 'ENERGY ONLY' },
+  { title: 'Onda local', type: 'Retro', className: 'design-blue', mark: 'OLA', sub: 'LOCAL / 86' },
+  { title: 'Café y caos', type: 'Gráfico', className: 'design-yellow', mark: 'CAFÉ', sub: '+ CAOS' },
+  { title: 'No bad days', type: 'Tipografía', className: 'design-pink', mark: 'NO BAD', sub: 'DAYS CLUB' },
+  { title: 'Future is handmade', type: 'Retro', className: 'design-black', mark: 'FUTURE', sub: 'IS HANDMADE' },
+  { title: 'Sol de domingo', type: 'Gráfico', className: 'design-orange', mark: 'DOMINGO', sub: 'ALL DAY' },
+  { title: 'Stay curious', type: 'Tipografía', className: 'design-cyan', mark: 'STAY', sub: 'CURIOUS' },
+  { title: 'Amor local', type: 'Retro', className: 'design-red', mark: 'AMOR', sub: 'LOCAL' },
+  { title: 'Make it real', type: 'Tipografía', className: 'design-purple', mark: 'MAKE IT', sub: 'REAL' },
+  { title: 'Club de los raros', type: 'Gráfico', className: 'design-green', mark: 'RAROS', sub: 'CLUB' },
+  { title: 'Print your story', type: 'Gráfico', className: 'design-white', mark: 'PRINT', sub: 'YOUR STORY' }
 ];

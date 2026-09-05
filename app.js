@@ -1,78 +1,91 @@
-import { products, processSteps } from './src/data/products.js';
+import { products, designs, heroSlides } from './src/data/products.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const lab = document.querySelector('[data-lab]');
-const labTabs = document.querySelector('.lab-tabs');
-const labImage = document.querySelector('[data-lab-image]');
-const labName = document.querySelector('[data-lab-name]');
-const labDescription = document.querySelector('[data-lab-description]');
-const labStep = document.querySelector('[data-lab-step]');
-const labTech = document.querySelector('[data-lab-tech]');
-const storyImage = document.querySelector('[data-story-image]');
-let activeProduct = 0;
-let storyStage = 0;
-let rotationTimer;
+const toast = document.querySelector('[data-toast]');
+let toastTimer;
+let heroIndex = 0;
+let heroTimer;
 
-function renderLabTabs() {
-  labTabs.innerHTML = products.map((product, index) => `<button class="lab-tab ${index === 0 ? 'is-active' : ''}" type="button" role="tab" aria-selected="${index === 0}" aria-controls="lab-visual" data-product-index="${index}" data-accent="${product.accent}">${product.shortName}</button>`).join('');
-  labTabs.querySelectorAll('.lab-tab').forEach((tab) => tab.addEventListener('click', () => selectProduct(Number(tab.dataset.productIndex), true)));
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add('is-visible');
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2800);
 }
 
-function selectProduct(index, userInitiated = false) {
-  activeProduct = index;
-  const product = products[index];
-  lab.style.setProperty('--active-accent', `var(--color-${product.accent})`);
-  labImage.classList.add('is-changing');
-  window.setTimeout(() => {
-    labImage.src = product.image;
-    labImage.alt = product.alt;
-    labName.textContent = product.name;
-    labDescription.textContent = product.description;
-    labStep.textContent = `01 / ${product.name} blank`;
-    labTech.textContent = product.technology;
-    labImage.classList.remove('is-changing');
-  }, reducedMotion ? 0 : 220);
-  labTabs.querySelectorAll('.lab-tab').forEach((tab, tabIndex) => {
-    const active = tabIndex === index;
-    tab.classList.toggle('is-active', active);
-    tab.setAttribute('aria-selected', String(active));
-  });
-  if (userInitiated) restartRotation();
+function renderProducts(filter = 'all') {
+  const grid = document.querySelector('[data-products-grid]');
+  grid.innerHTML = products.map((product, index) => {
+    const hidden = filter !== 'all' && product.category !== filter ? ' is-hidden' : '';
+    return `<article class="product-card${hidden}" data-category="${product.category}" style="animation-delay:${index * 45}ms"><a class="product-image-link" href="#contacto" data-product-name="${product.name}"><img data-reveal-image src="${product.image}" alt="${product.alt}" width="1000" height="1250" loading="lazy" /><span class="product-custom-print product-print-${product.id}" aria-hidden="true"><strong>${product.shortName}</strong><span>${product.id === 'mugs' ? 'DAILY / 01' : 'PINOLEROS / 26'}</span></span><span class="product-arrow" aria-hidden="true">↗</span><span class="image-print-label">Listo para imprimir</span></a><div class="product-meta"><div><p class="product-kind">${String(index + 1).padStart(2, '0')} / ${product.technology}</p><h3>${product.name}</h3></div><span class="product-price">${product.price}</span></div><p class="product-description">${product.description}</p></article>`;
+  }).join('');
+  grid.querySelectorAll('[data-product-name]').forEach((link) => link.addEventListener('click', () => showToast(`Elegiste ${link.dataset.productName}. Cuéntanos cómo lo quieres.`)));
 }
 
-function restartRotation() {
-  window.clearInterval(rotationTimer);
-  if (!reducedMotion) rotationTimer = window.setInterval(() => selectProduct((activeProduct + 1) % products.length), 6500);
+function renderDesigns(type = 'Todos', query = '') {
+  const grid = document.querySelector('[data-design-grid]');
+  const normalizedQuery = query.trim().toLowerCase();
+  const visible = designs.filter((design) => (type === 'Todos' || design.type === type) && (!normalizedQuery || `${design.title} ${design.type}`.toLowerCase().includes(normalizedQuery)));
+  grid.innerHTML = visible.map((design, index) => `<article class="design-card" style="animation-delay:${index * 45}ms"><div class="design-art ${design.className}"><strong>${design.mark}</strong><span>${design.sub}</span></div><button type="button" aria-label="Imprimir diseño ${design.title}" data-design-name="${design.title}">↗</button></article>`).join('');
+  document.querySelector('[data-design-count]').textContent = visible.length;
+  grid.querySelectorAll('[data-design-name]').forEach((button) => button.addEventListener('click', () => showToast(`“${button.dataset.designName}” está listo para imprimir.`)));
 }
 
-function renderProcess() {
-  document.querySelector('[data-process-rail]').innerHTML = processSteps.map((step) => `<article class="process-step"><span>${step.number}</span><h3>${step.title}</h3><p>${step.copy}</p></article>`).join('');
-}
-
-function renderProducts() {
-  document.querySelector('[data-products-grid]').innerHTML = products.map((product, index) => `<article class="product-card" data-accent="${product.accent}"><a class="product-image-link" href="#start" data-product-index="${index}"><img src="${product.image}" alt="${product.alt}" width="1000" height="1250" loading="lazy" /><span class="product-arrow" aria-hidden="true">↗</span></a><div class="product-meta"><div><p class="product-kind">${String(index + 1).padStart(2, '0')} / ${product.technology}</p><h3>${product.name}</h3></div><span>${product.price}</span></div><p class="product-description">${product.description}</p></article>`).join('');
-  document.querySelectorAll('.product-image-link').forEach((link) => link.addEventListener('mouseenter', () => selectProduct(Number(link.dataset.productIndex), true)));
-}
-
-function advanceStory() {
-  const stages = [...document.querySelectorAll('.story-stage')];
-  storyStage = (storyStage + 1) % stages.length;
-  stages.forEach((stage, index) => stage.classList.toggle('is-active', index === storyStage));
-  storyImage.classList.add('is-changing');
-  window.setTimeout(() => storyImage.classList.remove('is-changing'), reducedMotion ? 0 : 240);
-}
-
-renderLabTabs();
-renderProcess();
 renderProducts();
-document.querySelector('[data-story-next]').addEventListener('click', advanceStory);
-restartRotation();
+renderDesigns();
+
+function updateHero(index, direction = 1) {
+  heroIndex = (index + heroSlides.length) % heroSlides.length;
+  const slide = heroSlides[heroIndex];
+  const image = document.querySelector('[data-hero-image]');
+  const product = document.querySelector('[data-hero-slider]');
+  image.classList.add('is-sliding');
+  product.style.setProperty('--hero-accent', `var(--${slide.accent})`);
+  window.setTimeout(() => {
+    image.src = slide.image;
+    image.alt = slide.alt;
+    document.querySelector('[data-hero-name]').textContent = slide.product;
+    document.querySelector('[data-hero-detail]').textContent = slide.detail;
+    document.querySelector('[data-hero-counter]').textContent = `${String(heroIndex + 1).padStart(2, '0')} / 03 · Selección de hoy`;
+    document.querySelector('[data-hero-pill]').textContent = heroIndex === 0 ? 'Nuevo drop' : 'Más elegido';
+    image.classList.remove('is-sliding');
+  }, reducedMotion ? 0 : 260);
+  document.querySelectorAll('[data-hero-progress] span').forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === heroIndex));
+}
+
+function restartHero() {
+  window.clearInterval(heroTimer);
+  if (!reducedMotion) heroTimer = window.setInterval(() => updateHero(heroIndex + 1), 5200);
+}
+
+document.querySelector('[data-hero-prev]').addEventListener('click', () => { updateHero(heroIndex - 1, -1); restartHero(); });
+document.querySelector('[data-hero-next]').addEventListener('click', () => { updateHero(heroIndex + 1); restartHero(); });
+restartHero();
+
+document.querySelectorAll('[data-product-filter]').forEach((button) => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-product-filter]').forEach((item) => item.classList.remove('is-active'));
+  button.classList.add('is-active');
+  renderProducts(button.dataset.productFilter);
+}));
+
+document.querySelectorAll('[data-design-filter]').forEach((button) => button.addEventListener('click', () => {
+  document.querySelectorAll('[data-design-filter]').forEach((item) => item.classList.remove('is-active'));
+  button.classList.add('is-active');
+  renderDesigns(button.dataset.designFilter, document.querySelector('[data-design-search]').value);
+}));
+
+document.querySelector('[data-design-search]').addEventListener('input', (event) => {
+  const activeFilter = document.querySelector('[data-design-filter].is-active').dataset.designFilter;
+  renderDesigns(activeFilter, event.target.value);
+});
+
+document.querySelector('[data-load-more]').addEventListener('click', () => showToast('Estamos preparando una nueva colección de diseños.'));
 
 document.querySelector('.menu-toggle').addEventListener('click', (event) => {
   const button = event.currentTarget;
-  const open = button.getAttribute('aria-expanded') === 'true';
-  button.setAttribute('aria-expanded', String(!open));
-  document.body.classList.toggle('menu-open', !open);
+  const isOpen = button.getAttribute('aria-expanded') === 'true';
+  button.setAttribute('aria-expanded', String(!isOpen));
+  document.body.classList.toggle('menu-open', !isOpen);
 });
 document.querySelectorAll('.mobile-menu a').forEach((link) => link.addEventListener('click', () => {
   document.querySelector('.menu-toggle').setAttribute('aria-expanded', 'false');
@@ -80,17 +93,27 @@ document.querySelectorAll('.mobile-menu a').forEach((link) => link.addEventListe
 }));
 
 const header = document.querySelector('[data-header]');
-const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 20);
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
+window.addEventListener('scroll', () => header.classList.toggle('is-scrolled', window.scrollY > 18), { passive: true });
 
 const cursor = document.querySelector('[data-cursor]');
 if (cursor && window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
-  window.addEventListener('pointermove', (event) => { cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`; }, { passive: true });
+  window.addEventListener('pointermove', (event) => { cursor.style.left = `${event.clientX}px`; cursor.style.top = `${event.clientY}px`; }, { passive: true });
   document.querySelectorAll('a, button').forEach((element) => {
     element.addEventListener('mouseenter', () => cursor.classList.add('is-visible'));
     element.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'));
   });
 }
 
-document.querySelectorAll('img').forEach((image) => image.addEventListener('error', () => image.classList.add('image-error')));
+document.querySelectorAll('img').forEach((image) => image.addEventListener('error', () => image.setAttribute('alt', 'Imagen no disponible')));
+
+if ('IntersectionObserver' in window && !reducedMotion) {
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .18 });
+  document.querySelectorAll('[data-reveal-image], .inspiration-images img, .design-card').forEach((element) => imageObserver.observe(element));
+}
