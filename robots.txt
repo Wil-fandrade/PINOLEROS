@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pinoleros.com/sitemap.xml
