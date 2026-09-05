@@ -94,6 +94,39 @@ h1 em, h2 em { color: var(--cyan-dark); font-family: Georgia, serif; font-weight
 @keyframes heroBlob { from { transform: translate3d(-3%, -2%, 0) rotate(-7deg) scale(.96); } to { transform: translate3d(5%, 4%, 0) rotate(8deg) scale(1.08); } }
 @keyframes heroGlow { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .hero { animation: none; } .hero::before, .hero::after { animation: none; } }
+.hero.page-grid,
+.proof-section,
+.products-section,
+.designs-section,
+.process-section,
+.inspiration-section,
+.contact-section { position: relative; isolation: isolate; overflow: hidden; }
+.hero.page-grid > *,
+.proof-section > *,
+.products-section > *,
+.designs-section > *,
+.process-section > *,
+.inspiration-section > *,
+.contact-section > * { position: relative; z-index: 2; }
+.hero.page-grid::after,
+.proof-section::after,
+.products-section::after,
+.designs-section::after,
+.process-section::after,
+.inspiration-section::after,
+.contact-section::after { content: ''; position: absolute; z-index: 1; right: -18%; bottom: -38%; width: 82%; height: 92%; border-radius: 48% 52% 42% 58% / 58% 38% 62% 42%; background: linear-gradient(115deg, transparent 8%, rgba(18,203,215,.18) 34%, rgba(119,104,222,.15) 62%, rgba(240,156,187,.15) 86%, transparent); filter: blur(30px); opacity: .9; pointer-events: none; animation: sectionWave 17s ease-in-out infinite alternate; }
+.proof-section::before,
+.products-section::before,
+.designs-section::before,
+.process-section::before,
+.inspiration-section::before,
+.contact-section::before { content: ''; position: absolute; z-index: 1; top: -42%; left: -24%; width: 72%; height: 82%; border-radius: 58% 42% 62% 38% / 44% 64% 36% 56%; background: linear-gradient(120deg, rgba(18,203,215,.13), rgba(255,255,255,.04) 42%, rgba(240,156,187,.12)); filter: blur(34px); opacity: .8; pointer-events: none; animation: sectionWaveReverse 21s ease-in-out infinite alternate; }
+.products-section::after { background: linear-gradient(115deg, transparent 8%, rgba(18,203,215,.22) 34%, rgba(118,105,204,.2) 64%, transparent 88%); }
+.designs-section::after { background: linear-gradient(115deg, transparent 8%, rgba(18,203,215,.2) 34%, rgba(240,156,187,.18) 64%, transparent 88%); }
+.contact-section::after { background: linear-gradient(115deg, transparent 8%, rgba(255,255,255,.22) 34%, rgba(118,105,204,.18) 64%, transparent 88%); }
+@keyframes sectionWave { 0% { transform: translate3d(-7%, 5%, 0) rotate(-7deg) scale(.9); } 50% { transform: translate3d(3%, -4%, 0) rotate(5deg) scale(1.04); } 100% { transform: translate3d(12%, 2%, 0) rotate(12deg) scale(1.12); } }
+@keyframes sectionWaveReverse { 0% { transform: translate3d(5%, -3%, 0) rotate(8deg) scale(1.06); } 100% { transform: translate3d(-12%, 8%, 0) rotate(-10deg) scale(.9); } }
+@media (prefers-reduced-motion: reduce) { .hero.page-grid::after, .proof-section::before, .proof-section::after, .products-section::before, .products-section::after, .designs-section::before, .designs-section::after, .process-section::before, .process-section::after, .inspiration-section::before, .inspiration-section::after, .contact-section::before, .contact-section::after { animation: none; } }
 .products-section { background-image: radial-gradient(circle at 12% 18%, rgba(18,203,215,.14), transparent 22%), radial-gradient(circle at 84% 74%, rgba(118,105,204,.18), transparent 24%), linear-gradient(145deg, #151b20, #202a2f 48%, #151b20); }
 .product-image-link { width: min(100%, 260px); margin-inline: auto; aspect-ratio: 1 / 1.16; border: 1px solid rgba(255,255,255,.08); box-shadow: 0 18px 45px rgba(0,0,0,.18); }
 .product-image-link img { aspect-ratio: 1 / 1.16; }
