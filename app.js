@@ -51,6 +51,10 @@ function updateHero(index, direction = 1) {
     image.classList.remove('is-sliding');
   }, reducedMotion ? 0 : 260);
   document.querySelectorAll('[data-hero-progress] span').forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === heroIndex));
+  document.querySelectorAll('[data-hero-thumb]').forEach((thumb, thumbIndex) => {
+    thumb.classList.toggle('is-active', thumbIndex === heroIndex);
+    thumb.setAttribute('aria-current', thumbIndex === heroIndex ? 'true' : 'false');
+  });
 }
 
 function restartHero() {
@@ -60,6 +64,10 @@ function restartHero() {
 
 document.querySelector('[data-hero-prev]').addEventListener('click', () => { updateHero(heroIndex - 1, -1); restartHero(); });
 document.querySelector('[data-hero-next]').addEventListener('click', () => { updateHero(heroIndex + 1); restartHero(); });
+document.querySelectorAll('[data-hero-thumb]').forEach((thumb) => thumb.addEventListener('click', () => {
+  updateHero(Number(thumb.dataset.heroThumb));
+  restartHero();
+}));
 restartHero();
 
 document.querySelectorAll('[data-product-filter]').forEach((button) => button.addEventListener('click', () => {
